@@ -19,7 +19,7 @@ class Matrix {
     std::map<int, CRElement*> columnmap{};
     CRElement _firstRow;
     CRElement _firstColumn;
-    void resize();
+    void resize(bool isCalledByUser=true);
 public:
     Matrix();
     Matrix(int columns, int rows);

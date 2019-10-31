@@ -139,6 +139,26 @@ Matrix<T>::~Matrix() {
 }
 
 template<typename T>
-void Matrix<T>::resize() {
-    //todo: creates a bigger matrix (1.5* max sizes when they are nearly full), actualize all values
+void Matrix<T>::resize(bool isCalledByUser) {
+    /* there are several possibilitiesthat can appear when there is a need to resize:
+     * 1. the columns and rows are near or at the gap => both have to be increased
+     * 2. the Columns are at the gap and the rows can stay at the same value
+     * 3. the columns are at the gap and the rows can be decreased
+     * 4. the rows are at the gab and the columns stay at the same value
+     * 5. the rows and the columns can be decreased
+     * 6. the rows are on the gap and the columns can be decreased
+     *
+     * when filling the matrix it would not be good if the resize will occur and several reallocations will occur
+     * so there will be just the increase functions unless it is called by a user with resize
+    */
+    //90% may be a good value for resize
+    if(rowMap.size() >= _maxAmountRows*0.9 || columnmap.size() >= _maxAmountColumns*0.9) {
+
+
+        //todo: creates a bigger matrix (1.5* max sizes when they are nearly full), actualize all values
+        //dont get stuck in size 1
+        double factorColumns{_maxAmountColumns < 10 ? 2. : 1.5};
+        double factorRows{_maxAmountRows < 10 ? 2. : 1.5};
+        T *newMatrix = new T[_maxAmountColumns * factorColumns * _maxAmountRows * factorRows];
+    }
 }
